@@ -15,9 +15,18 @@ public class NewsLab {
     private NewsLab(Context appContext) {
         mAppContext = appContext;
         mNewses = new ArrayList<News>();
+
+        // TODO: Add tests data for now, will add unit test later
+        for(int i=0; i<100; ++i) {
+            News news = new News();
+            news.setTitle("News" + i);
+            news.setContent("News Content" + i);
+            news.setDescription("News description" + i);
+            mNewses.add(news);
+        }
     }
 
-    public NewsLab getNewsLab(Context c) {
+    public static NewsLab getNewsLab(Context c) {
         if(sNewsLab == null) {
             sNewsLab = new NewsLab(c.getApplicationContext());
         }

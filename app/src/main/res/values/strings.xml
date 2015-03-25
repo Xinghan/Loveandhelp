@@ -4,5 +4,6 @@
     <string name="app_name">Loveandhelp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="news_title">News</string>
 
 </resources>
