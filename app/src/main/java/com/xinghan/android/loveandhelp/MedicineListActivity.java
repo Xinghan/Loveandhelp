@@ -1,12 +1,11 @@
 package com.xinghan.android.loveandhelp;
 
 import android.support.v4.app.Fragment;
-import android.view.Menu;
 
 /**
- * Created by xinghan on 3/24/15.
+ * Created by xinghan on 3/29/15.
  */
-public class NewsListActivity extends SingleFragmentActivity {
+public class MedicineListActivity extends SingleFragmentActivity{
 
     @Override
     protected Fragment createFragment() {

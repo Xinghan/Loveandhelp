@@ -5,5 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="news_title">News</string>
+    <string name="news_favorite_actionbar">Favorite</string>
+    <string name="subtitle">News</string>
 
 </resources>

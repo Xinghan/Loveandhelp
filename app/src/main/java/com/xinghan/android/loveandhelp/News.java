@@ -38,6 +38,11 @@ public class News {
         mContent = content;
     }
 
+    @Override
+    public String toString() {
+        return mTitle;
+    }
+
     private UUID mId;
     private String mTitle;
     private String mDescription;
