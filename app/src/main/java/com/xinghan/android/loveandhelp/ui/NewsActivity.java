@@ -1,9 +1,8 @@
-package com.xinghan.android.loveandhelp;
+package com.xinghan.android.loveandhelp.ui;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
+
+import com.xinghan.android.loveandhelp.ui.SingleFragmentActivity;
 
 
 public class NewsActivity extends SingleFragmentActivity {

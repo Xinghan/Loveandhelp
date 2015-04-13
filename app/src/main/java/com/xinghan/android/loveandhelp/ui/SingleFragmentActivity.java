@@ -1,10 +1,12 @@
-package com.xinghan.android.loveandhelp;
+package com.xinghan.android.loveandhelp.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+
+import com.xinghan.android.loveandhelp.R;
 
 /**
  * Created by xinghan on 3/15/15.

@@ -7,5 +7,6 @@
     <string name="news_title">News</string>
     <string name="news_favorite_actionbar">Favorite</string>
     <string name="subtitle">News</string>
+    <string name="icon">image</string>
 
 </resources>

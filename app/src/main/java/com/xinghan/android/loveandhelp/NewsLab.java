@@ -1,6 +1,9 @@
 package com.xinghan.android.loveandhelp;
 
 import android.content.Context;
+
+import com.xinghan.android.loveandhelp.core.news.News;
+
 import java.util.ArrayList;
 import java.util.UUID;
 

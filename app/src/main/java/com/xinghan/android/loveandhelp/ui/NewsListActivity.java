@@ -1,7 +1,8 @@
-package com.xinghan.android.loveandhelp;
+package com.xinghan.android.loveandhelp.ui;
 
 import android.support.v4.app.Fragment;
-import android.view.Menu;
+
+import com.xinghan.android.loveandhelp.ui.SingleFragmentActivity;
 
 /**
  * Created by xinghan on 3/24/15.

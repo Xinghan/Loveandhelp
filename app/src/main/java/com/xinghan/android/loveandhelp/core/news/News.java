@@ -1,4 +1,6 @@
-package com.xinghan.android.loveandhelp;
+package com.xinghan.android.loveandhelp.core.news;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.UUID;
 
@@ -38,13 +40,31 @@ public class News {
         mContent = content;
     }
 
+    public String getLink() {
+        return mLink;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public void setLink(String link) {
+        mLink = link;
+    }
+
+    public void setImage(String image) {
+        mImage = image;
+    }
+
     @Override
     public String toString() {
         return mTitle;
     }
 
     private UUID mId;
-    private String mTitle;
+    @SerializedName(("title")) private String mTitle;
     private String mDescription;
     private String mContent;
+    private String mLink;
+    @SerializedName("photo") String mImage;
 }
