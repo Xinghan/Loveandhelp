@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 
 import com.xinghan.android.loveandhelp.R;
 
@@ -27,6 +28,12 @@ public abstract class SingleFragmentActivity extends ActionBarActivity {
                     .add(R.id.fragmentContainer, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_news, menu);
+        return (super.onCreateOptionsMenu(menu));
     }
 
 }

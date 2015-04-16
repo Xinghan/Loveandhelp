@@ -15,27 +15,23 @@ import java.util.Arrays;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by xinghan on 4/15/15.
+ * Created by xinghan on 4/12/15.
  */
-public class NewsLoadThread extends Thread {
-    private String mNewsSlug;
-
-    public NewsLoadThread(String slug) {
-        this.mNewsSlug = slug;
-    }
+public class NewsListLoadThread extends Thread{
+    static final String NEWS_URL = "http://192.168.1.7:8000/api/entries/.json";
 
     @Override
     public void run() {
-        String newsURL = "http://192.168.1.7:8000/api/entries/" + mNewsSlug +"/.json";
         try {
-            HttpURLConnection c = (HttpURLConnection) new URL(newsURL).openConnection();
-            c.setConnectTimeout(3000);
+            HttpURLConnection c = (HttpURLConnection) new URL(NEWS_URL).openConnection();
+
             try {
                 InputStream in = c.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                News news = new Gson().fromJson(reader, News.class);
+                News[] newses = new Gson().fromJson(reader, News[].class);
+                NewsList questions = new NewsList(Arrays.asList(newses));
                 reader.close();
-                EventBus.getDefault().post(new NewsLoadEvent(news));
+                EventBus.getDefault().post(new NewsListLoadEvent(questions));
             } catch (IOException e) {
                 Log.e(getClass().getSimpleName(), "Exception parsing JSON news", e);
             }

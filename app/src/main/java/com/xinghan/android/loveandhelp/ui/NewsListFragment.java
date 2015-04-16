@@ -1,13 +1,10 @@
 package com.xinghan.android.loveandhelp.ui;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,10 +15,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xinghan.android.loveandhelp.core.news.News;
-import com.xinghan.android.loveandhelp.NewsLab;
 import com.xinghan.android.loveandhelp.R;
-import com.xinghan.android.loveandhelp.core.news.NewsLoadEvent;
-import com.xinghan.android.loveandhelp.core.news.NewsLoadThread;
+import com.xinghan.android.loveandhelp.core.news.NewsListLoadEvent;
+import com.xinghan.android.loveandhelp.core.news.NewsListLoadThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +41,7 @@ public class NewsListFragment extends ListFragment {
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.news_title);
 
-        new NewsLoadThread().start();
+        new NewsListLoadThread().start();
     }
 
     @Override
@@ -62,31 +58,15 @@ public class NewsListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-
+        News news = ((NewsAdapter)getListAdapter()).getItem(position);
+        // Start single news activity
+        Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
+        newsIntent.putExtra(NewsFragment.EXTRA_NEWS_ID, news.getSlug());
+        startActivity(newsIntent);
     }
 
-    public void onEventMainThread(NewsLoadEvent event) {
+    public void onEventMainThread(NewsListLoadEvent event) {
         setListAdapter(new NewsAdapter(event.mNewses.getNewsList()));
-    }
-
-
-    @TargetApi(11)
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, parent, savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            Log.d(LogNewsList, "Version is 11");
-            if (mSubtitleVisible) {
-                getActivity().getActionBar().setSubtitle(R.string.subtitle);
-            }
-        }
-        return v;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_news, menu);
     }
 
     class NewsAdapter extends ArrayAdapter<News> {
