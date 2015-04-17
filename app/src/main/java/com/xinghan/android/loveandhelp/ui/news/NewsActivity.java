@@ -1,4 +1,4 @@
-package com.xinghan.android.loveandhelp.ui;
+package com.xinghan.android.loveandhelp.ui.news;
 
 import android.support.v4.app.Fragment;
 

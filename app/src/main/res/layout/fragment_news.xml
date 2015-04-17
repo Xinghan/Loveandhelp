@@ -7,12 +7,18 @@
     android:id="@+id/news_details_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dip"
+    style="@style/NewsTitleText"
     />
+
 
 <TextView
     android:id="@+id/news_details_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dip"
+    android:maxLines = "1000"
+    android:scrollbars = "vertical"
     />
 
 </LinearLayout>

@@ -67,6 +67,7 @@ public class News {
     private String mContent;
     private String mLink;
 
+
     public String getSlug() {
         return mSlug;
     }
@@ -87,4 +88,14 @@ public class News {
     }
 
     @SerializedName("body") String mBody;
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    @SerializedName("created") String mDate;
 }

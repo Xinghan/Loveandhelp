@@ -2,7 +2,7 @@ package com.xinghan.android.loveandhelp;
 
 import android.support.v4.app.Fragment;
 
-import com.xinghan.android.loveandhelp.ui.NewsListFragment;
+import com.xinghan.android.loveandhelp.ui.news.NewsListFragment;
 import com.xinghan.android.loveandhelp.ui.SingleFragmentActivity;
 
 /**
