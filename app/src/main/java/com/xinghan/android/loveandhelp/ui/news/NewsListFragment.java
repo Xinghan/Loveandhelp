@@ -69,7 +69,7 @@ public class NewsListFragment extends ListFragment {
 
     class NewsAdapter extends ArrayAdapter<News> {
         NewsAdapter(List<News> newses) {
-            super(getActivity(), R.layout.newslist_row, R.id.title, newses);
+            super(getActivity(), R.layout.fragment_newslist_row, R.id.title, newses);
         }
 
         @Override

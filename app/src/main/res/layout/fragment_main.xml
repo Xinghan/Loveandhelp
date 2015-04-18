@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:drawablePadding="8dp"
+            android:textAlignment="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:textSize="25dp"
+            android:text="@string/main_navi_news"
+            android:id="@+id/main_navi_news"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_media_play"
+        android:drawablePadding="8dp"
+        android:textAlignment="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:textSize="25dp"
+        android:text="@string/main_navi_medicine"
+        android:id="@+id/main_navi_medicine" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_media_play"
+        android:drawablePadding="8dp"
+        android:textAlignment="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:textSize="25dp"
+        android:text="@string/main_navi_service"
+        android:id="@+id/main_navi_service"/>
+
+</LinearLayout>

@@ -2,12 +2,15 @@
 <resources>
 
     <string name="app_name">Loveandhelp</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    ＃News
     <string name="news_title">News</string>
     <string name="news_favorite_actionbar">Favorite</string>
     <string name="subtitle">News</string>
     <string name="icon">image</string>
+
+    #User
     <string name="user_email_text">Please enter your email</string>
     <string name="user_name_text">Please enter your user name</string>
     <string name="user_password_text">Please enter your password. (At least 8 characters)</string>
@@ -15,5 +18,10 @@
     <string name="user_name_hint">Name</string>
     <string name="user_password_hint">Password</string>
     <string name="user_signup">Sign Up</string>
+    <string name="main_navi_news">Latest Alzheimer\'s News</string>
+    <string name="main_navi_medicine">Check Alzheimer\'s Medicine</string>
+    <string name="main_navi_service">Find Alzheimer\'s Service</string>
+
+
 
 </resources>

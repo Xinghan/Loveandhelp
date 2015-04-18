@@ -1,22 +1,23 @@
 package com.xinghan.android.loveandhelp.ui.main;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.xinghan.android.loveandhelp.R;
+import com.xinghan.android.loveandhelp.ui.SingleFragmentActivity;
+import com.xinghan.android.loveandhelp.ui.news.NewsFragment;
 
 /**
  * Created by xinghan on 3/29/15.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends SingleFragmentActivity {
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_news, menu);
-        return super.onCreateOptionsMenu(menu);
+    protected Fragment createFragment() {
+        return new MainFragment();
     }
+
 }
