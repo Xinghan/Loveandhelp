@@ -7,11 +7,14 @@ import java.util.UUID;
  * Created by xinghan on 4/18/15.
  */
 public class Patient {
-    private enum Gender {
+    public enum Gender {
         Male,
         Female
     };
 
+    public Patient() {
+        mUuid = UUID.randomUUID();
+    }
     public String getName() {
         return mName;
     }

@@ -34,6 +34,10 @@ public class PatientLab {
         return mPatients;
     }
 
+    public void addPatient(Patient patient) {
+        mPatients.add(patient);
+    }
+
     public Patient getPatient(UUID uuid) {
         for (Patient p: mPatients) {
             if (p.getUuid() == uuid) return p;

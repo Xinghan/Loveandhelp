@@ -1,15 +1,17 @@
 package com.xinghan.android.loveandhelp.ui.patient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.xinghan.android.loveandhelp.R;
 import com.xinghan.android.loveandhelp.core.patient.Patient;
 import com.xinghan.android.loveandhelp.core.patient.PatientLab;
@@ -26,6 +28,7 @@ public class PaitentListFragment extends ListFragment{
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Patient");
+        setHasOptionsMenu(true);
         mPatients = PatientLab.getPatientLab(getActivity()).getPatients();
 
         PatientAdapter patientArrayAdapter = new PatientAdapter(mPatients);
@@ -36,6 +39,27 @@ public class PaitentListFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_crime:
+                Patient patient = new Patient();
+                PatientLab.getPatientLab(getActivity()).addPatient(patient);
+                Intent i = new Intent(getActivity(), PatientActivity.class);
+                i.putExtra(PatientFragment.EXTRA_PATIENT_ID, patient.getUuid());
+                startActivityForResult(i, 0);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_patient_list, menu);
     }
 
     private class PatientAdapter extends ArrayAdapter<Patient> {
