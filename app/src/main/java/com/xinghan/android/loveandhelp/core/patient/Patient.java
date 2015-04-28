@@ -42,9 +42,18 @@ public class Patient extends Role {
         this.mAge = age;
     }
 
+    public long getId() {
+        return mId;
+    }
+
+    public void setId(long id) {
+        mId = id;
+    }
+
     private Gender mGender;
     private Date mBirthday;
     private Integer mAge;
+    private long mId;
 
 
     @Override

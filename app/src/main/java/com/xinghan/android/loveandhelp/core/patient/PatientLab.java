@@ -12,8 +12,10 @@ public class PatientLab {
     private ArrayList<Patient> mPatients;
     private static PatientLab sPatientLab;
     private Context mAppContext;
+    private PatientManager.PatientCursor mPatientCursor;
 
     PatientLab(Context context) {
+        mPatientCursor = PatientManager.getPatientManager(context).queryPatients();
         this.mAppContext = context;
         this.mPatients = new ArrayList<Patient>();
         for (int i=0; i<5; ++i) {
@@ -21,6 +23,11 @@ public class PatientLab {
             p.setName("P" + i);
             mPatients.add(p);
         }
+    }
+
+    protected void finalize() throws Throwable {
+        mPatientCursor.close();
+        super.finalize();
     }
 
     public static PatientLab getPatientLab(Context c) {

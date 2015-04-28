@@ -35,7 +35,6 @@
         <activity android:name=".ui.patient.PatientListActivity"
                   android:label="@string/app_name"
                   android:theme="@style/Theme.AppCompat.Light">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -26,6 +26,10 @@
 
     # Patient
     <string name="patient_new">Add</string>
+    <string name="patient_name_text">Name</string>
+    <string name="patient_name_hint">James</string>
+    <string name="patient_age_text">Age</string>
+    <string name="patient_age_hint">70</string>
 
 
 
