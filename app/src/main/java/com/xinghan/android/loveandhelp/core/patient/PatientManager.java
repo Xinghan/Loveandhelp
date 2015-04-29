@@ -21,9 +21,9 @@ import java.util.UUID;
 public class PatientManager {
     private static final String LOG_TAG = "PATIENT_DB";
     private static final String PATIENT_TABLE = "patient";
-    private static final String COLUMN_PATIENT_ID = "id";
-    private static final String COLUMN_PATIENT_NAME = "name";
-    private static final String COLUMN_PATIENT_AGE = "age";
+    public static final String COLUMN_PATIENT_ID = "_id";
+    public static final String COLUMN_PATIENT_NAME = "name";
+    public static final String COLUMN_PATIENT_AGE = "age";
 
 
     private LocalDBHelper mLocalDBHelper;
@@ -49,6 +49,7 @@ public class PatientManager {
         // Store UUID as string in database
         cv.put(LocalDBHelper.KEY_UUID, patient.getUuid().toString());
         cv.put(LocalDBHelper.KEY_NAME, patient.getName());
+        cv.put(LocalDBHelper.KEY_AGE, patient.getAge());
         //cv.put(KEY_BIRTHDAY, patient.getBirthday().getTime());
 
         db.insert(LocalDBHelper.TABLE_PATIENT, null, cv);
@@ -59,6 +60,18 @@ public class PatientManager {
     public PatientCursor queryPatients() {
         Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
                 null, null, null, null, null, COLUMN_PATIENT_ID + " asc");
+        return new PatientCursor(wrapped);
+    }
+
+    public PatientCursor queryPatient(long id) {
+        Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(mLocalDBHelper.TABLE_PATIENT,
+                null, // All columns
+                COLUMN_PATIENT_ID + " = ?", // Look for a run ID
+                new String[]{String.valueOf(id)}, // with this value
+                null, // group by
+                null, // order by
+                null, // having
+                "1"); // limit 1 row
         return new PatientCursor(wrapped);
     }
 
@@ -76,6 +89,7 @@ public class PatientManager {
             int pAge = getInt(getColumnIndex(COLUMN_PATIENT_AGE));
             patient.setAge(new Integer(pAge));
             String pName = getString(getColumnIndex(COLUMN_PATIENT_NAME));
+            patient.setName(pName);
             return patient;
         }
     }
