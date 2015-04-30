@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment;
 import com.xinghan.android.loveandhelp.ui.SingleFragmentActivity;
 
 /**
- * Created by xinghan on 4/18/15.
+ * Created by xinghan on 4/29/15.
  */
-public class PatientListActivity extends SingleFragmentActivity{
+public class PatientDetailsActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return new PatientListFragment();
+        return new PatientDetailsFragment();
     }
 }

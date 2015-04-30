@@ -10,7 +10,7 @@ import com.xinghan.android.loveandhelp.core.patient.Patient;
  * Created by xinghan on 4/22/15.
  */
 public class LocalDBHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "loveandhelp.db";
+    public static final String DATABASE_NAME = "loveandhelp.db";
     private static final int VERSION = 1;
     private static LocalDBHelper singletonDB = null;
 
@@ -22,7 +22,7 @@ public class LocalDBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_PATIENT_TABLE =
             "CREATE TABLE patient (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "uuid TEXT," +
                     "age INTEGER," +
                     "name TEXT)";

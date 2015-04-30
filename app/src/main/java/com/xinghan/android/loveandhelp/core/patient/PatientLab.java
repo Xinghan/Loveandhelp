@@ -25,11 +25,6 @@ public class PatientLab {
         }
     }
 
-    protected void finalize() throws Throwable {
-        mPatientCursor.close();
-        super.finalize();
-    }
-
     public static PatientLab getPatientLab(Context c) {
         if (sPatientLab == null) {
             sPatientLab = new PatientLab(c.getApplicationContext());

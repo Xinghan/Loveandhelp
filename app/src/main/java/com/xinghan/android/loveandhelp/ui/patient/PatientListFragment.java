@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +27,12 @@ import java.util.ArrayList;
 /**
  * Created by xinghan on 4/18/15.
  */
-public class PaitentListFragment extends ListFragment{
+public class PatientListFragment extends ListFragment{
     private ArrayList<Patient> mPatients;
     private PatientManager.PatientCursor mPatientCursor;
+    private PatientCursorAdapter mCursorAdapter;
+
+    public static final String EXTRA_PATIENT_ID = "com.xinghan.loveandhelp.patient.id";
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -36,14 +40,22 @@ public class PaitentListFragment extends ListFragment{
         getActivity().setTitle("Patient");
         setHasOptionsMenu(true);
         mPatients = PatientLab.getPatientLab(getActivity()).getPatients();
-
-        PatientCursorAdapter adapter = new PatientCursorAdapter(getActivity(), mPatientCursor);
-        setListAdapter(adapter);
+        mPatientCursor = PatientManager.getPatientManager(getActivity()).queryPatients();
+        mCursorAdapter = new PatientCursorAdapter(getActivity(), mPatientCursor);
+        setListAdapter(mCursorAdapter);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
+        PatientManager.PatientCursor patientCursor =
+                (PatientManager.PatientCursor)(mCursorAdapter.getItem(position));
+
+        // Start PatientActivity
+        Intent i = new Intent(getActivity(), PatientDetailsActivity.class);
+        i.putExtra(EXTRA_PATIENT_ID, patientCursor.getLong(
+                patientCursor.getColumnIndex(PatientManager.COLUMN_PATIENT_ID)));
+        startActivity(i);
     }
 
     @Override
@@ -53,7 +65,6 @@ public class PaitentListFragment extends ListFragment{
                 Patient patient = new Patient();
                 PatientLab.getPatientLab(getActivity()).addPatient(patient);
                 Intent i = new Intent(getActivity(), PatientActivity.class);
-                i.putExtra(PatientFragment.EXTRA_PATIENT_ID, patient.getUuid());
                 startActivityForResult(i, 0);
                 return true;
             default:
@@ -85,30 +96,12 @@ public class PaitentListFragment extends ListFragment{
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             Patient patient = mPatientCursor.getPatient();
+            //Log.i("Patient List F", patient.toString());
             TextView patientNameTextView = (TextView)view;
+            Log.d("PF: ", String.valueOf(patient.getId()));
             String patientName = patient.getName();
             patientNameTextView.setText(patientName);
         }
     }
-
- /*   private class PatientAdapter extends ArrayAdapter<Patient> {
-        PatientAdapter(ArrayList<Patient> patients) {
-            super(getActivity(), 0, mPatients);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater()
-                        .inflate(R.layout.fragment_patientlist_row, null);
-            }
-
-            Patient patient = getItem(position);
-            TextView textView = (TextView)convertView.findViewById(R.id.patient_row_name_text);
-            textView.setText(patient.toString());
-            return convertView;
-        }
-    }*/
-
 
 }

@@ -48,6 +48,10 @@
 
 
         </activity>
+        <activity android:name=".ui.patient.PatientDetailsActivity"
+                  android:label="Loveandhelp"
+                  android:theme="@style/Theme.AppCompat.Light">
+            </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 

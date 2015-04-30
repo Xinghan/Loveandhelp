@@ -64,14 +64,20 @@ public class PatientManager {
     }
 
     public PatientCursor queryPatient(long id) {
-        Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(mLocalDBHelper.TABLE_PATIENT,
-                null, // All columns
-                COLUMN_PATIENT_ID + " = ?", // Look for a run ID
-                new String[]{String.valueOf(id)}, // with this value
+        Cursor wrapped1 = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
+                null, null, null, null, null, COLUMN_PATIENT_ID + " asc");
+        Log.d(LOG_TAG, "size: " + wrapped1.getCount());
+        Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
+                new String[] { COLUMN_PATIENT_ID,
+                        COLUMN_PATIENT_AGE, COLUMN_PATIENT_NAME }, // All columns
+                COLUMN_PATIENT_ID +"="+ id, // Look for a run ID
+                null, // with this value
                 null, // group by
                 null, // order by
-                null, // having
-                "1"); // limit 1 row
+                null); // limit 1 row
+        Log.d(LOG_TAG, "s: " + wrapped.getCount());
+        wrapped.moveToFirst();
+
         return new PatientCursor(wrapped);
     }
 

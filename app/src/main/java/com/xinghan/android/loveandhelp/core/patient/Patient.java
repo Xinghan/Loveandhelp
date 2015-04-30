@@ -55,6 +55,18 @@ public class Patient extends Role {
     private Integer mAge;
     private long mId;
 
+    @Override
+    public String getName() {
+        return mName;
+    }
+
+    @Override
+    public void setName(String name) {
+        mName = name;
+    }
+
+    private String mName;
+
 
     @Override
     public String toString() {
