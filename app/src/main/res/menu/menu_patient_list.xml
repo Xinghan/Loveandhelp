@@ -5,4 +5,9 @@
           android:icon="@android:drawable/ic_menu_add"
           android:title="@string/patient_new"
           loveandhelp:showAsAction="ifRoom|withText" />
+
+    <item android:id="@+id/menu_item_sync_patient"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="Sync"
+          loveandhelp:showAsAction="ifRoom|withText" />
 </menu>

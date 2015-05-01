@@ -32,6 +32,10 @@
     <string name="patient_age_hint">70</string>
     <string name="patient_name_empty">Name cannot be empty</string>
     <string name="patient_age_empty">Age cannot be empty</string>
+    <string name="patient_add_new_medicine">Add new medicine</string>
+
+    # Colors
+    <color name="light_red">#FF3366</color>
 
 
 
