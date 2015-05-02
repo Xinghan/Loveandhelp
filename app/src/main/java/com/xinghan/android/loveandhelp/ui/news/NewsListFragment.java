@@ -3,6 +3,7 @@ package com.xinghan.android.loveandhelp.ui.news;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +39,10 @@ public class NewsListFragment extends ListFragment {
         setRetainInstance(true);
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.news_title);
-
         new NewsListLoadThread().start();
     }
+
+
 
     @Override
     public void onPause() {
@@ -53,6 +55,7 @@ public class NewsListFragment extends ListFragment {
         super.onResume();
         EventBus.getDefault().register(this);
     }
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {

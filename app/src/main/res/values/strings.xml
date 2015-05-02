@@ -20,11 +20,12 @@
     <string name="user_signup">Sign Up</string>
 
     # Main
-    <string name="main_navi_news">Latest Alzheimer\'s News</string>
-    <string name="main_navi_medicine">Check Alzheimer\'s Medicine</string>
-    <string name="main_navi_service">Find Alzheimer\'s Service</string>
+    <string name="main_navi_news">Latest News</string>
+    <string name="main_navi_patient">Add Patients</string>
+    <string name="main_navi_medicine">Find Medicine</string>
 
     # Patient
+    <string name="patient_title">Patients</string>
     <string name="patient_new">Add</string>
     <string name="patient_name_text">Name</string>
     <string name="patient_name_hint">James</string>
@@ -36,6 +37,13 @@
 
     # Colors
     <color name="light_red">#FF3366</color>
+    <string name="title_activity_home">Home</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 
 
 
