@@ -81,6 +81,18 @@ public class PatientManager {
         return new PatientCursor(wrapped);
     }
 
+    public boolean updatePatient(Patient patient) {
+        SQLiteDatabase db = mLocalDBHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        // Store UUID as string in database
+        cv.put(LocalDBHelper.KEY_UUID, patient.getUuid().toString());
+        cv.put(LocalDBHelper.KEY_NAME, patient.getName());
+        cv.put(LocalDBHelper.KEY_AGE, patient.getAge());
+        //cv.put(KEY_BIRTHDAY, patient.getBirthday().getTime());
+
+        return db.update(PATIENT_TABLE, cv, COLUMN_PATIENT_ID + "=" + patient.getId(), null) > 0;
+    }
+
     public static class PatientCursor extends CursorWrapper {
 
         public PatientCursor(Cursor c) {

@@ -71,6 +71,7 @@ public class PatientDetailsFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_new_patient:
                 Intent i = new Intent(getActivity(), PatientActivity.class);
+                i.putExtra(PatientFragment.EXTRA_PATIENT_ID, mPatient.getId());
                 startActivityForResult(i, 0);
                 return true;
             default:

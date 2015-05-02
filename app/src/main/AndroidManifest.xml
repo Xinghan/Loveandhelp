@@ -41,7 +41,10 @@
         <activity
             android:name=".ui.patient.PatientActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:theme="@style/Theme.AppCompat.Light" android:parentActivityName=".ui.patient.PatientListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xinghan.android.loveandhelp.ui.patient.PatientListActivity" />
         </activity>
         <activity
             android:name=".ui.patient.PatientDetailsActivity"
