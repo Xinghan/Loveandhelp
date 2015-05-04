@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -94,16 +95,15 @@ public class PatientFragment extends Fragment{
                         // Toast successfully update
                         Toast.makeText(getActivity(), "Update successful.", Toast.LENGTH_LONG)
                                 .show();
+                        getActivity().finish();
+
                     }
                 } else {
                     mPatientManager.insertPatient(patient);
                     Toast.makeText(getActivity(), "Save successful.", Toast.LENGTH_LONG)
                             .show();
+                    getActivity().finish();
                 }
-
-                // Going back to patients list view
-                Intent i = new Intent(getActivity(), PatientListActivity.class);
-                startActivityForResult(i, 0);
             }
         });
 

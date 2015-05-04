@@ -3,6 +3,8 @@ package com.xinghan.android.loveandhelp.ui.patient;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,6 +53,7 @@ public class PatientDetailsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_patient_details, container, false);
         mPatientAgeText = (TextView) v.findViewById(R.id.patient_details_age);
         mPatientNameText = (TextView) v.findViewById(R.id.patient_details_name);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (mPatient != null) {
             mPatientNameText.setText(mPatient.getName());
@@ -73,6 +76,10 @@ public class PatientDetailsFragment extends Fragment {
                 Intent i = new Intent(getActivity(), PatientActivity.class);
                 i.putExtra(PatientFragment.EXTRA_PATIENT_ID, mPatient.getId());
                 startActivityForResult(i, 0);
+                return true;
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(getActivity());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

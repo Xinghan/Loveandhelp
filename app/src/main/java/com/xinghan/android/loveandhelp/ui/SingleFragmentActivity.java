@@ -26,6 +26,7 @@ public abstract class SingleFragmentActivity extends ActionBarActivity {
             fragment = createFragment();
             fm.beginTransaction()
                     .add(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
     }
