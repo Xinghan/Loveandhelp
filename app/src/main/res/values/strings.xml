@@ -11,6 +11,7 @@
     <string name="icon">image</string>
 
     # User
+    <string name="user_login_title">Login</string>
     <string name="user_email_text">Please enter your email</string>
     <string name="user_name_text">Please enter your user name</string>
     <string name="user_password_text">Please enter your password. (At least 8 characters)</string>
@@ -26,7 +27,8 @@
 
     # Patient
     <string name="patient_title">Patients</string>
-    <string name="patient_new">Add</string>
+    <string name="patient_new">Add Patient</string>
+
     <string name="patient_name_text">Name</string>
     <string name="patient_name_hint">James</string>
     <string name="patient_age_text">Age</string>

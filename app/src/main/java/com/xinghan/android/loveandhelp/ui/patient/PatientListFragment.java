@@ -37,7 +37,7 @@ public class PatientListFragment extends ListFragment{
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Patient");
+        getActivity().setTitle(R.string.patient_title);
         setHasOptionsMenu(true);
         mPatients = PatientLab.getPatientLab(getActivity()).getPatients();
         mPatientCursor = PatientManager.getPatientManager(getActivity()).queryPatients();
@@ -90,15 +90,13 @@ public class PatientListFragment extends ListFragment{
             LayoutInflater inflater = (LayoutInflater)context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             return inflater
-                    .inflate(android.R.layout.simple_list_item_1, parent, false);
+                    .inflate(R.layout.fragment_patientlist_row, parent, false);
         }
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             Patient patient = mPatientCursor.getPatient();
-            //Log.i("Patient List F", patient.toString());
-            TextView patientNameTextView = (TextView)view;
-            Log.d("PF: ", String.valueOf(patient.getId()));
+            TextView patientNameTextView = (TextView)view.findViewById(R.id.patient_row_name_text);
             String patientName = patient.getName();
             patientNameTextView.setText(patientName);
         }

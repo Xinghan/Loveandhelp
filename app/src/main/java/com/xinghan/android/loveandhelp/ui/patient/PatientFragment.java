@@ -42,6 +42,7 @@ public class PatientFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
+        getActivity().setTitle(R.string.patient_new);
         mPatientManager = PatientManager.getPatientManager(getActivity());
         if (getActivity().getIntent().getExtras() != null) {
             long pId = (long)(getActivity().getIntent()

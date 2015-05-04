@@ -36,6 +36,7 @@ public class PatientDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
+
         mPatientManager = PatientManager.getPatientManager(getActivity());
         if (getActivity().getIntent().getExtras() != null) {
             long pId = (long)(getActivity().getIntent()
@@ -44,6 +45,7 @@ public class PatientDetailsFragment extends Fragment {
             PatientManager.PatientCursor patientCursor = mPatientManager.queryPatient(pId);
             if(patientCursor.getPatient() != null) {
                 mPatient = patientCursor.getPatient();
+                getActivity().setTitle(mPatient.getName());
             }
         }
     }
