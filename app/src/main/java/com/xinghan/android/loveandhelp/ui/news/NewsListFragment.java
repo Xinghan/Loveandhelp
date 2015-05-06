@@ -42,8 +42,6 @@ public class NewsListFragment extends ListFragment {
         new NewsListLoadThread().start();
     }
 
-
-
     @Override
     public void onPause() {
         EventBus.getDefault().unregister(this);

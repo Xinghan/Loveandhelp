@@ -33,8 +33,8 @@ public class UserFragment extends Fragment {
 
             ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         return v;
     }
-
 
 }

@@ -9,4 +9,8 @@ import java.util.UUID;
  */
 public class User extends Role {
     private String mPassword;
+
+    private User() {
+
+    }
 }
