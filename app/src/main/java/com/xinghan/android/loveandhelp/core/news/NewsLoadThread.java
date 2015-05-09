@@ -26,7 +26,7 @@ public class NewsLoadThread extends Thread {
 
     @Override
     public void run() {
-        String newsURL = "http://192.168.1.11:8000/api/entries/" + mNewsSlug +"/.json";
+        String newsURL = "http://192.168.1.13:8000/api/entries/" + mNewsSlug +"/.json";
         try {
             HttpURLConnection c = (HttpURLConnection) new URL(newsURL).openConnection();
             c.setConnectTimeout(3000);

@@ -1,50 +1,116 @@
 package com.xinghan.android.loveandhelp.core.user;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.xinghan.android.loveandhelp.core.news.NewsLoadEvent;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by xinghan on 5/5/15.
  */
-public class UserSignupThread extends Thread {
+public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
+    public final int REGISTRATION = 1;
+    public final String url = "http://192.168.1.13:8000/api/accounts/";
 
-    private User mUser;
+    private Register mRegister;
 
-    public UserSignupThread(User user) {
-        this.mUser = user;
+    public UserSignupThread(Register register) {
+        this.mRegister = register;
     }
 
     @Override
-    public void run() {
-        Gson userGson = new Gson();
-        String url = "http://192.168.1.11:8000/api/account";
-        DataOutputStream printout;
-        DataInputStream input;
-        try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-
-            conn.setUseCaches(false);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.connect();
-
-            printout = new DataOutputStream(conn.getOutputStream ());
-            printout.writeBytes(URLEncoder.encode(userGson.toJson(mUser), "UTF-8"));
-            printout.flush();
-            printout.close();
-        } catch (Exception e){
-            Log.d("UserSignup", "cannot signup user");
-        }
+    protected JSONObject doInBackground(String... params) {
+        JSONObject jo = getHttpJsonResult(url, REGISTRATION);
+        return jo;
     }
+
+    @Override
+    protected void onPostExecute(JSONObject jo) {
+        super.onPostExecute(jo);
+    }
+
+    private JSONObject getHttpJsonResult(String url, int state) {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost request = new HttpPost(url);
+        request.setHeader("Content-type", "application/json");
+        request.addHeader("Accept", "application/json");
+        List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+        JSONObject jo = null;
+        boolean paramIsValid = false;
+
+        switch(state){
+            case REGISTRATION:
+                paramIsValid = true;
+                break;
+            default:
+                Log.d("User Register Thread", "Invalid User state");
+        }
+
+        if (paramIsValid) {
+            BufferedReader bufferedReader = null;
+            StringBuffer stringBuffer = new StringBuffer("");
+            try {
+                StringEntity entity = new StringEntity(new Gson().toJson(mRegister));
+                request.setEntity(entity);
+                BufferedReader br = new BufferedReader(new InputStreamReader(request.getEntity().getContent()));
+                HttpResponse response = httpClient.execute(request);
+                int status = response.getStatusLine().getStatusCode();
+                Log.d("response code: ", (new Integer(status)).toString());
+                bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                String line = "";
+                String LineSeparator = System.getProperty("line.separator");
+                while((line = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(line + LineSeparator);
+                }
+
+                bufferedReader.close();
+
+                Log.d("User http post:", "result: " + stringBuffer);
+
+                jo = generateJSonObject(status, stringBuffer.toString());
+                //Log.d("User http code",)
+                EventBus.getDefault().post(new RegistrationEvent(jo));
+
+            } catch (Exception e){
+                Log.d("User http thread", "post fail");
+            }
+        }
+
+        return jo;
+    }
+
+    private JSONObject generateJSonObject(int status, String result) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("status", new Integer(status).toString());
+            jo.put("result", result);
+        } catch (JSONException e) {
+            Log.d("user post", "Cannot gennerate JSON object");
+        }
+
+        return jo;
+    }
+
+
+
 }
