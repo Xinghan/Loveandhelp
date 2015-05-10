@@ -20,6 +20,8 @@
     <string name="user_password_hint">Password</string>
     <string name="user_signup">Sign Up</string>
     <string name="user_account">Account</string>
+    <string name="user_token">token</string>
+    <string name="account_logout_text">Log Out</string>
 
     # Main
     <string name="main_navi_news">Latest News</string>

@@ -5,6 +5,19 @@
               android:layout_height="match_parent">
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_avatar"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_user"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/account_username"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -18,5 +31,12 @@
         android:layout_height="wrap_content"
         android:text="@string/user_signup"
         android:id="@+id/user_registration"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_logout_text"
+        android:id="@+id/account_logout"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

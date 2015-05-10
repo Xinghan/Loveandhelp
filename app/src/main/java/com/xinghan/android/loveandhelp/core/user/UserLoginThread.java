@@ -67,7 +67,7 @@ public class UserLoginThread extends AsyncTask<String, Void, JSONObject> {
 
                 jo = generateJSonObject(status, stringBuffer.toString());
 
-                EventBus.getDefault().post(new RegistrationEvent(jo));
+                EventBus.getDefault().post(new LoginEvent(jo));
 
             } catch (Exception e){
                 Log.d("User http thread", "post fail");
@@ -79,6 +79,7 @@ public class UserLoginThread extends AsyncTask<String, Void, JSONObject> {
 
     private JSONObject generateJSonObject(int status, String result) {
         JSONObject jo = new JSONObject();
+        Log.d("generateJSONobj", result);
         try {
             jo.put("status", new Integer(status).toString());
             jo.put("result", result);
