@@ -66,6 +66,7 @@ public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
             BufferedReader bufferedReader = null;
             StringBuffer stringBuffer = new StringBuffer("");
             try {
+                Log.d("Signup", new Gson().toJson(mRegister));
                 StringEntity entity = new StringEntity(new Gson().toJson(mRegister));
 
                 request.setEntity(entity);
@@ -87,7 +88,7 @@ public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
 
                 jo = generateJSonObject(status, stringBuffer.toString());
 
-                EventBus.getDefault().post(new LoginEvent(jo));
+                EventBus.getDefault().post(new RegistrationEvent(jo));
 
             } catch (Exception e){
                 Log.d("User http thread", "post fail");
