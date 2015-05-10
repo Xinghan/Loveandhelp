@@ -4,15 +4,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.xinghan.android.loveandhelp.R;
 import com.xinghan.android.loveandhelp.core.user.Login;
+import com.xinghan.android.loveandhelp.core.user.LoginEvent;
 import com.xinghan.android.loveandhelp.core.user.Register;
+import com.xinghan.android.loveandhelp.core.user.RegistrationEvent;
 import com.xinghan.android.loveandhelp.core.user.UserLoginThread;
 import com.xinghan.android.loveandhelp.core.user.UserSignupThread;
 
@@ -41,6 +45,29 @@ public class LoginFragment extends Fragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+    }
+
+    public void onEventMainThread(LoginEvent event) {
+        Log.d("registration", "got event");
+        if (event.result != null) {
+            try {
+                int status = event.result.getInt("status");
+                Log.d("login", new Integer(status).toString());
+                if (status != 201) {
+                    Toast.makeText(getActivity(), "Login Failed.", Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    Toast.makeText(getActivity(), "Login successful.", Toast.LENGTH_LONG)
+                            .show();
+                    getActivity().finish();
+                }
+            } catch (Exception e) {
+                Log.d("User fragment", e.getMessage());
+            }
+        }
+        else {
+            Log.d("login", "no event");
+        }
     }
 
     @Override
