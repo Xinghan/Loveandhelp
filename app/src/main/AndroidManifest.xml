@@ -32,6 +32,20 @@
             android:name=".ui.user.UserActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light" >
+            android:parentActivityName=".ui.patient.AccountActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.xinghan.android.loveandhelp.ui.user.AccountActivity" />
+        </activity>
+        <activity
+            android:name=".ui.user.AccountActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name=".ui.user.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name=".ui.patient.PatientListActivity"

@@ -95,9 +95,11 @@ public class UserFragment extends Fragment {
                 int status = event.result.getInt("status");
                 Log.d("registration", new Integer(status).toString());
                 if (status != 201) {
-                    Toast.makeText(getActivity(), "Registration successful.", Toast.LENGTH_LONG)
+                    Toast.makeText(getActivity(), "Registration Failed.", Toast.LENGTH_LONG)
                             .show();
                 } else {
+                    Toast.makeText(getActivity(), "Registration successful.", Toast.LENGTH_LONG)
+                            .show();
                     getActivity().finish();
                 }
             } catch (Exception e) {

@@ -19,6 +19,7 @@
     <string name="user_name_hint">Name</string>
     <string name="user_password_hint">Password</string>
     <string name="user_signup">Sign Up</string>
+    <string name="user_account">Account</string>
 
     # Main
     <string name="main_navi_news">Latest News</string>

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/edit_login_username"
         android:layout_gravity="center_horizontal"/>
 
     <EditText
@@ -17,13 +17,13 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/edit_login_password"
         android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_login_title"
-        android:id="@+id/button"
+        android:id="@+id/user_login_button"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

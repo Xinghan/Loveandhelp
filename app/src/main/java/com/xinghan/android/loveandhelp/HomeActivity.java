@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.xinghan.android.loveandhelp.ui.main.MainFragment;
 import com.xinghan.android.loveandhelp.ui.news.NewsListFragment;
 import com.xinghan.android.loveandhelp.ui.patient.PatientListFragment;
+import com.xinghan.android.loveandhelp.ui.user.AccountFragment;
 import com.xinghan.android.loveandhelp.ui.user.UserFragment;
 
 
@@ -76,8 +77,8 @@ public class HomeActivity extends ActionBarActivity
                 mTitle = getString(R.string.patient_title);
                 break;
             case 3:
-                fragment = new UserFragment();
-                mTitle = getString(R.string.user_login_title);
+                fragment = new AccountFragment();
+                mTitle = getString(R.string.user_account);
                 break;
             default:
                 fragment = new MainFragment();
