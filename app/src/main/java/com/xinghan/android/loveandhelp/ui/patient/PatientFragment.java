@@ -1,6 +1,7 @@
 package com.xinghan.android.loveandhelp.ui.patient;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -96,6 +97,7 @@ public class PatientFragment extends Fragment{
                         // Toast successfully update
                         Toast.makeText(getActivity(), "Update successful.", Toast.LENGTH_LONG)
                                 .show();
+                        getActivity().setResult(Activity.RESULT_OK);
                         getActivity().finish();
 
                     }
@@ -103,6 +105,7 @@ public class PatientFragment extends Fragment{
                     mPatientManager.insertPatient(patient);
                     Toast.makeText(getActivity(), "Save successful.", Toast.LENGTH_LONG)
                             .show();
+                    getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
             }

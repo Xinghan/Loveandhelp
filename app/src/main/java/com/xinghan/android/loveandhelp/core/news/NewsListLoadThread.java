@@ -18,7 +18,7 @@ import de.greenrobot.event.EventBus;
  * Created by xinghan on 4/12/15.
  */
 public class NewsListLoadThread extends Thread{
-    static final String NEWS_URL = "http://192.168.1.13:8000/api/entries/.json";
+    static final String NEWS_URL = "http://192.168.1.11:8000/api/entries/.json";
 
     @Override
     public void run() {

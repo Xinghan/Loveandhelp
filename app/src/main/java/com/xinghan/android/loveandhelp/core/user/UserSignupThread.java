@@ -27,7 +27,7 @@ import de.greenrobot.event.EventBus;
  */
 public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
     public final int REGISTRATION = 1;
-    public final String url = "http://192.168.1.13:8000/api/accounts/";
+    public final String url = "http://192.168.1.11:8000/api/accounts/";
 
     private Register mRegister;
 
@@ -67,6 +67,7 @@ public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
             StringBuffer stringBuffer = new StringBuffer("");
             try {
                 StringEntity entity = new StringEntity(new Gson().toJson(mRegister));
+
                 request.setEntity(entity);
                 BufferedReader br = new BufferedReader(new InputStreamReader(request.getEntity().getContent()));
                 HttpResponse response = httpClient.execute(request);
@@ -86,7 +87,7 @@ public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
 
                 jo = generateJSonObject(status, stringBuffer.toString());
 
-                EventBus.getDefault().post(new RegistrationEvent(jo));
+                EventBus.getDefault().post(new LoginEvent(jo));
 
             } catch (Exception e){
                 Log.d("User http thread", "post fail");

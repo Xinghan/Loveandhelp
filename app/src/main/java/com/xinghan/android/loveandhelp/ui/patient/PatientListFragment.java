@@ -1,5 +1,6 @@
 package com.xinghan.android.loveandhelp.ui.patient;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,6 +34,7 @@ public class PatientListFragment extends ListFragment{
     private PatientCursorAdapter mCursorAdapter;
 
     public static final String EXTRA_PATIENT_ID = "com.xinghan.loveandhelp.patient.id";
+    public int ADD_PATIENT_CODE = 100;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -65,12 +67,24 @@ public class PatientListFragment extends ListFragment{
                 Patient patient = new Patient();
                 PatientLab.getPatientLab(getActivity()).addPatient(patient);
                 Intent i = new Intent(getActivity(), PatientActivity.class);
-                startActivityForResult(i, 0);
+                startActivityForResult(i, ADD_PATIENT_CODE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == ADD_PATIENT_CODE) && (resultCode == Activity.RESULT_OK)) {
+            mPatientCursor = PatientManager.getPatientManager(getActivity()).queryPatients();
+            mCursorAdapter = new PatientCursorAdapter(getActivity(), mPatientCursor);
+            setListAdapter(mCursorAdapter);
+        }
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
