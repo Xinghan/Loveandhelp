@@ -61,6 +61,7 @@ public class NewsListFragment extends ListFragment {
         // Start single news activity
         Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
         newsIntent.putExtra(NewsFragment.EXTRA_NEWS_ID, news.getSlug());
+        newsIntent.putExtra(NewsFragment.EXTRA_NEWS_COUNT, mNewses.size());
         startActivity(newsIntent);
     }
 

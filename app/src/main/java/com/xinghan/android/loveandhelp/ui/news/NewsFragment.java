@@ -1,6 +1,9 @@
 package com.xinghan.android.loveandhelp.ui.news;
 
 import android.annotation.TargetApi;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,11 +20,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xinghan.android.loveandhelp.R;
+import com.xinghan.android.loveandhelp.core.news.News;
 import com.xinghan.android.loveandhelp.core.news.NewsListLoadEvent;
+import com.xinghan.android.loveandhelp.core.news.NewsListLoadThread;
 import com.xinghan.android.loveandhelp.core.news.NewsLoadEvent;
 import com.xinghan.android.loveandhelp.core.news.NewsLoadThread;
 
 import java.lang.annotation.Target;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import de.greenrobot.event.EventBus;
@@ -32,9 +38,13 @@ import de.greenrobot.event.EventBus;
 public class NewsFragment extends Fragment{
     public static final String EXTRA_NEWS_ID =
         "com.xinghan.android.loveandhelp.ui.news_id";
+    public static final String EXTRA_NEWS_COUNT =
+            "com.xinghan.android.loveandhelp.ui.news_count";
 
     private TextView mTitleView;
     private TextView mContentView;
+    private ViewPager mViewPager;
+    private ArrayList<News> mNewsArrayList;
 
 
     @Override
@@ -44,7 +54,16 @@ public class NewsFragment extends Fragment{
         setRetainInstance(true);
         setHasOptionsMenu(true);
         String newsSlug = (String)getActivity().getIntent().getSerializableExtra(EXTRA_NEWS_ID);
-        new NewsLoadThread(newsSlug).start();
+        Integer newsCount = (Integer)getActivity().getIntent().getSerializableExtra(EXTRA_NEWS_COUNT);
+
+        mViewPager = new ViewPager(this.getActivity());
+        mViewPager.setId(R.id.news_viewpager);
+
+        FragmentManager fm = getChildFragmentManager();
+        mViewPager.setAdapter(new NewsViewPagerAdapter(fm));
+
+        new NewsListLoadThread().start();
+        new NewsLoadThread(newsSlug, newsCount).start();
     }
 
     @TargetApi(11)
@@ -94,6 +113,25 @@ public class NewsFragment extends Fragment{
         contentView.setMovementMethod(new ScrollingMovementMethod());
         titleView.setText(event.mNews.getTitle());
         contentView.setText(event.mNews.getBody());
+    }
 
+    public static class NewsViewPagerAdapter extends FragmentPagerAdapter {
+        public NewsViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int num) {
+            if (num == 0) {
+                return new ItemsListFragment();
+            } else {
+                return new FavsListFragment();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_ITEMS;
+        }
     }
 }
