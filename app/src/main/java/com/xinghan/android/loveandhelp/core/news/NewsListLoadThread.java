@@ -18,7 +18,7 @@ import de.greenrobot.event.EventBus;
  * Created by xinghan on 4/12/15.
  */
 public class NewsListLoadThread extends Thread{
-    static final String NEWS_URL = "http://192.168.1.13:8000/api/entries/.json";
+    static final String NEWS_URL = "http://192.168.1.2:8000/api/entries/.json";
 
     @Override
     public void run() {
@@ -29,9 +29,9 @@ public class NewsListLoadThread extends Thread{
                 InputStream in = c.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 News[] newses = new Gson().fromJson(reader, News[].class);
-                NewsList questions = new NewsList(Arrays.asList(newses));
+                NewsList newsList = new NewsList(Arrays.asList(newses));
                 reader.close();
-                EventBus.getDefault().post(new NewsListLoadEvent(questions));
+                EventBus.getDefault().post(new NewsListLoadEvent(newsList));
             } catch (IOException e) {
                 Log.e(getClass().getSimpleName(), "Exception parsing JSON news", e);
             }

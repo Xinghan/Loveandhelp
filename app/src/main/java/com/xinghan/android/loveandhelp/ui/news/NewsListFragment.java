@@ -30,7 +30,8 @@ public class NewsListFragment extends ListFragment {
 
     public static final String LogNewsList = "NewsListFragment";
 
-    private ArrayList<News> mNewses;
+    private List<News> mNewses;
+    private ArrayList<String> mNewsSlug;
     private boolean mSubtitleVisible;
 
     @Override
@@ -58,14 +59,25 @@ public class NewsListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         News news = ((NewsAdapter)getListAdapter()).getItem(position);
-        // Start single news activity
-        Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
-        newsIntent.putExtra(NewsFragment.EXTRA_NEWS_ID, news.getSlug());
-        newsIntent.putExtra(NewsFragment.EXTRA_NEWS_COUNT, mNewses.size());
+
+        // Start single news activity, pass news slug array to intent
+        Intent newsIntent = new Intent(getActivity(), NewsPagerActivity.class);
+
+        newsIntent.putStringArrayListExtra(NewsFragment.EXTRA_NEWS_SLUG_ARRAY, mNewsSlug);
+        newsIntent.putExtra(NewsPagerFragment.EXTRA_NEWS_INDEX, news.getSlug());
+
+        //newsIntent.putExtra(NewsFragment.EXTRA_NEWS_ID, news.getSlug());
+        //newsIntent.putExtra(NewsFragment.EXTRA_NEWS_COUNT, mNewses.size());
         startActivity(newsIntent);
     }
 
     public void onEventMainThread(NewsListLoadEvent event) {
+        mNewses = (List)event.mNewses.getNewsList();
+        mNewsSlug = new ArrayList<String>();
+        for(News news: mNewses) {
+            mNewsSlug.add(news.getSlug());
+        }
+
         setListAdapter(new NewsAdapter(event.mNewses.getNewsList()));
     }
 
