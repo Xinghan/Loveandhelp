@@ -61,7 +61,7 @@ public class NewsListFragment extends ListFragment {
         News news = ((NewsAdapter)getListAdapter()).getItem(position);
 
         // Start single news activity, pass news slug array to intent
-        Intent newsIntent = new Intent(getActivity(), NewsPagerActivity.class);
+        Intent newsIntent = new Intent(getActivity(), NewsPager.class);
 
         newsIntent.putStringArrayListExtra(NewsFragment.EXTRA_NEWS_SLUG_ARRAY, mNewsSlug);
         newsIntent.putExtra(NewsPagerFragment.EXTRA_NEWS_INDEX, news.getSlug());

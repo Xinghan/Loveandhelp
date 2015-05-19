@@ -2,10 +2,10 @@ package com.xinghan.android.loveandhelp.ui.news;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.xinghan.android.loveandhelp.R;
 import com.xinghan.android.loveandhelp.core.news.News;
@@ -13,30 +13,32 @@ import com.xinghan.android.loveandhelp.core.news.News;
 import java.util.ArrayList;
 
 /**
- * Created by xinghan on 5/17/15.
+ * Created by xinghan on 5/18/15.
  */
-public class NewsPagerFragment extends Fragment {
+public class NewsPager extends FragmentActivity {
     public static final String EXTRA_NEWS_SLUG_ARRAY =
             "com.xinghan.android.loveandhelp.ui.news_count";
     public static final String EXTRA_NEWS_INDEX =
             "com.xinghan.android.loveandhelp.ui.news_index";
 
     private ViewPager mViewPager;
+
     private ArrayList<String> mNewsSlugList;
     private ArrayList<News> mNewsArrayList;
     public int mNewsCount;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewPager = new ViewPager(this);
+        mViewPager.setId(R.id.news_viewpager);
+        setContentView(mViewPager);
 
-        final ArrayList<String> mNewsSlugList = (ArrayList<String>)getActivity().getIntent().getStringArrayListExtra(EXTRA_NEWS_SLUG_ARRAY);
-        String newsSlug = getActivity().getIntent().getStringExtra(EXTRA_NEWS_INDEX);
+        final ArrayList<String> mNewsSlugList = (ArrayList<String>)getIntent().getStringArrayListExtra(EXTRA_NEWS_SLUG_ARRAY);
+        String newsSlug = getIntent().getStringExtra(EXTRA_NEWS_INDEX);
         mNewsCount = mNewsSlugList.size();
 
-        mViewPager = new ViewPager(this.getActivity());
-        mViewPager.setId(R.id.news_viewpager);
-
-        FragmentManager fm = getChildFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public int getCount() {
@@ -50,7 +52,6 @@ public class NewsPagerFragment extends Fragment {
             }
         });
 
-        // Set initial index
         int newSlugListSize = mNewsSlugList.size();
         for(int i =0; i< newSlugListSize; ++i) {
             if(mNewsSlugList.get(i).equals(newsSlug)) {
@@ -58,16 +59,5 @@ public class NewsPagerFragment extends Fragment {
                 break;
             }
         }
-
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            public void onPageScrollStateChanged(int state) { }
-
-            public void onPageScrolled(int pos, float posOffset, int posOffsetPixels) { }
-
-            public void onPageSelected(int pos) {
-                String slug = mNewsSlugList.get(pos);
-                getActivity().setTitle(slug);
-            }
-        });
     }
 }
