@@ -16,11 +16,6 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".ui.news.NewsPagerActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".ui.news.NewsListActivity">
-        </activity>
-        <activity
             android:name=".ui.news.NewsPager"
             android:label="@string/app_name"
             android:parentActivityName=".ui.news.NewsListActivity">

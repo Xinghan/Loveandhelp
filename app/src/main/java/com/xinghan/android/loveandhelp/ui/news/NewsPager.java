@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 
 import com.xinghan.android.loveandhelp.R;
 import com.xinghan.android.loveandhelp.core.news.News;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by xinghan on 5/18/15.
  */
-public class NewsPager extends FragmentActivity {
+public class NewsPager extends ActionBarActivity {
     public static final String EXTRA_NEWS_SLUG_ARRAY =
             "com.xinghan.android.loveandhelp.ui.news_count";
     public static final String EXTRA_NEWS_INDEX =
@@ -30,6 +32,7 @@ public class NewsPager extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.news_viewpager);
         setContentView(mViewPager);
