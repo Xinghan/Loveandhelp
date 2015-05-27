@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.xinghan.android.loveandhelp.network.ServerConnection;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -27,7 +28,7 @@ import de.greenrobot.event.EventBus;
  */
 public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
     public final int REGISTRATION = 1;
-    public final String url = "http://192.168.1.11:8000/api/accounts/";
+    public final String url = ServerConnection.SERVER + ServerConnection.RESTAPI + ServerConnection.ACCOUNTAPI;
 
     private Register mRegister;
 

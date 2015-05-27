@@ -3,6 +3,7 @@ package com.xinghan.android.loveandhelp.core.news;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.xinghan.android.loveandhelp.network.ServerConnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class NewsLoadThread extends Thread {
     @Override
     public void run() {
 
-        String newsURL = "http://192.168.1.2:8000/api/entries/" + mNewsSlug +"/.json";
+        String newsURL = ServerConnection.SERVER + ServerConnection.RESTAPI + ServerConnection.NEWSAPI + mNewsSlug +"/.json";
         try {
             HttpURLConnection c = (HttpURLConnection) new URL(newsURL).openConnection();
             c.setConnectTimeout(3000);

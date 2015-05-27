@@ -19,13 +19,23 @@ public class LocalDBHelper extends SQLiteOpenHelper {
     public final static String KEY_NAME = "name";
     public final static String TABLE_PATIENT = "patient";
     public final static String KEY_AGE = "age";
+    public final static String KEY_ISDIRTY = "isdirty";
+    public final static String KEY_STATE = "state";
+    public final static int NEW_ENTRY = 1;
+    public final static int UPDATE_ENTRY = 2;
+    public final static int DELETE_ENTRY = 3;
+    public final static int IS_DIRTY = 1;
+    public final static int CLEAN = 0;
+
 
     private static final String CREATE_PATIENT_TABLE =
             "CREATE TABLE patient (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "uuid TEXT," +
                     "age INTEGER," +
-                    "name TEXT)";
+                    "name TEXT," +
+                    "isdirty INTEGER," +
+                    "state INTEGER)";
 
     private LocalDBHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -41,6 +51,7 @@ public class LocalDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(CREATE_PATIENT_TABLE);
     }
 

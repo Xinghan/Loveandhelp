@@ -22,8 +22,14 @@ import com.xinghan.android.loveandhelp.R;
 import com.xinghan.android.loveandhelp.core.patient.Patient;
 import com.xinghan.android.loveandhelp.core.patient.PatientLab;
 import com.xinghan.android.loveandhelp.core.patient.PatientManager;
+import com.xinghan.android.loveandhelp.core.patient.PatientSync;
+import com.xinghan.android.loveandhelp.core.patient.PatientSyncEvent;
+import com.xinghan.android.loveandhelp.core.user.RegistrationEvent;
+import com.xinghan.android.loveandhelp.core.user.UserSignupThread;
 
 import java.util.ArrayList;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by xinghan on 4/18/15.
@@ -61,6 +67,22 @@ public class PatientListFragment extends ListFragment{
     }
 
     @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    public void onEventMainThread(PatientSyncEvent event) {
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_patient:
@@ -68,6 +90,10 @@ public class PatientListFragment extends ListFragment{
                 PatientLab.getPatientLab(getActivity()).addPatient(patient);
                 Intent i = new Intent(getActivity(), PatientActivity.class);
                 startActivityForResult(i, ADD_PATIENT_CODE);
+                return true;
+            case R.id.menu_item_sync_patient:
+                PatientSync n = new PatientSync(getActivity());
+                n.execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

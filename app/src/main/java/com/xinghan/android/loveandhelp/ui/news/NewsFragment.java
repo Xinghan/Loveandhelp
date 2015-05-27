@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xinghan.android.loveandhelp.R;
@@ -120,6 +121,8 @@ public class NewsFragment extends Fragment{
         View view = getView();
         TextView titleView = (TextView)view.findViewById(R.id.news_details_title);
         TextView contentView = (TextView)view.findViewById(R.id.news_details_content);
+        LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.news_detail_body);
+        view.findViewById(R.id.news_detail_body);
         contentView.setMovementMethod(new ScrollingMovementMethod());
         titleView.setText(event.mNews.getTitle());
         contentView.setText(event.mNews.getBody());

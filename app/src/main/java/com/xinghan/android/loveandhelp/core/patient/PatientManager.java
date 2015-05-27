@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.xinghan.android.loveandhelp.network.ServerConnection;
 import com.xinghan.android.loveandhelp.persistence.LocalDBHelper;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class PatientManager {
     public static final String COLUMN_PATIENT_ID = "_id";
     public static final String COLUMN_PATIENT_NAME = "name";
     public static final String COLUMN_PATIENT_AGE = "age";
+    public static final String COLUMN_PATIENT_ISDIRTY = "isdirty";
+    public static final String COLUMN_PATIENT_STATE = "state";
 
 
     private LocalDBHelper mLocalDBHelper;
@@ -50,6 +53,8 @@ public class PatientManager {
         cv.put(LocalDBHelper.KEY_UUID, patient.getUuid().toString());
         cv.put(LocalDBHelper.KEY_NAME, patient.getName());
         cv.put(LocalDBHelper.KEY_AGE, patient.getAge());
+        cv.put(LocalDBHelper.KEY_ISDIRTY, LocalDBHelper.IS_DIRTY);
+        cv.put(LocalDBHelper.KEY_STATE, LocalDBHelper.NEW_ENTRY);
         //cv.put(KEY_BIRTHDAY, patient.getBirthday().getTime());
 
         db.insert(LocalDBHelper.TABLE_PATIENT, null, cv);
@@ -88,9 +93,42 @@ public class PatientManager {
         cv.put(LocalDBHelper.KEY_UUID, patient.getUuid().toString());
         cv.put(LocalDBHelper.KEY_NAME, patient.getName());
         cv.put(LocalDBHelper.KEY_AGE, patient.getAge());
+        cv.put(LocalDBHelper.KEY_ISDIRTY, LocalDBHelper.IS_DIRTY);
+        cv.put(LocalDBHelper.KEY_STATE, LocalDBHelper.UPDATE_ENTRY);
         //cv.put(KEY_BIRTHDAY, patient.getBirthday().getTime());
 
         return db.update(PATIENT_TABLE, cv, COLUMN_PATIENT_ID + "=" + patient.getId(), null) > 0;
+    }
+
+    public ArrayList<PatientDBEntry> queryDirtyPatients() {
+        Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
+                new String[] {COLUMN_PATIENT_ID,
+                COLUMN_PATIENT_NAME, COLUMN_PATIENT_AGE, COLUMN_PATIENT_ISDIRTY, COLUMN_PATIENT_STATE},
+                COLUMN_PATIENT_ISDIRTY + "=" + "1",
+        null,
+        null,
+        null,
+        null);
+
+        wrapped.moveToFirst();
+        ArrayList<PatientDBEntry> arrayList = new ArrayList<PatientDBEntry>();
+        // Generate arraylist
+        String owner = ServerConnection.SERVER + ServerConnection.RESTAPI + ServerConnection.ACCOUNTAPI;
+        owner += "22/.json";
+
+        while(!wrapped.isAfterLast()) {
+            PatientDBEntry p = new PatientDBEntry();
+            p.setName(wrapped.getString(wrapped.getColumnIndex("name")));
+            p.setAge(wrapped.getInt(wrapped.getColumnIndex("age")));
+            p.setIsDirty(wrapped.getInt(wrapped.getColumnIndex("isdirty")));
+            p.setState(wrapped.getInt(wrapped.getColumnIndex("state")));
+            p.setOwner(owner);
+            arrayList.add(p);
+            wrapped.moveToNext();
+        }
+        wrapped.close();
+
+        return arrayList;
     }
 
     public static class PatientCursor extends CursorWrapper {
