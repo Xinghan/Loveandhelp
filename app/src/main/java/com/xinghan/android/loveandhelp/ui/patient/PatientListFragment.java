@@ -92,7 +92,7 @@ public class PatientListFragment extends ListFragment{
                 startActivityForResult(i, ADD_PATIENT_CODE);
                 return true;
             case R.id.menu_item_sync_patient:
-                PatientSync n = new PatientSync(getActivity());
+                PatientSync n = PatientSync.getPatientSync(getActivity());
                 n.execute();
                 return true;
             default:

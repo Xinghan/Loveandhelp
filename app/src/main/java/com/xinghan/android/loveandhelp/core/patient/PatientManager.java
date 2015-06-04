@@ -5,16 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.xinghan.android.loveandhelp.network.ServerConnection;
 import com.xinghan.android.loveandhelp.persistence.LocalDBHelper;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by xinghan on 4/19/15.
@@ -32,10 +28,19 @@ public class PatientManager {
     private LocalDBHelper mLocalDBHelper;
     private static PatientManager sPatientManager;
 
+    /**
+     * Constructor
+     * @param c Android context
+     */
     private PatientManager(Context c) {
         mLocalDBHelper = LocalDBHelper.getSingletonDB(c);
     }
 
+    /**
+     * API to get PatientManager
+     * @param c Android context
+     * @return PatientManager object
+     */
     public static PatientManager getPatientManager(Context c) {
         if (sPatientManager == null) {
             sPatientManager = new PatientManager(c.getApplicationContext());
@@ -44,6 +49,10 @@ public class PatientManager {
         return sPatientManager;
     }
 
+    /**
+     * Insert a single Patient into local SQLite DB
+     * @param patient Patient object to be inserted
+     */
     public void insertPatient(Patient patient) {
         Log.i(LOG_TAG, "Add patient to database");
 
@@ -62,12 +71,21 @@ public class PatientManager {
         db.close();
     }
 
+    /**
+     * Get Patients cursor from local SQLite DB
+     * @return All patients PatientCursor object
+     */
     public PatientCursor queryPatients() {
         Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
                 null, null, null, null, null, COLUMN_PATIENT_ID + " asc");
         return new PatientCursor(wrapped);
     }
 
+    /**
+     * Get single Patient object via patient id
+     * @param id
+     * @return Single Patient cursor object
+     */
     public PatientCursor queryPatient(long id) {
         Cursor wrapped1 = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
                 null, null, null, null, null, COLUMN_PATIENT_ID + " asc");
@@ -80,12 +98,16 @@ public class PatientManager {
                 null, // group by
                 null, // order by
                 null); // limit 1 row
-        Log.d(LOG_TAG, "s: " + wrapped.getCount());
         wrapped.moveToFirst();
 
         return new PatientCursor(wrapped);
     }
 
+    /**
+     * Update single patient entry in local SQLite DB
+     * @param patient Patient object to be updated
+     * @return if update success
+     */
     public boolean updatePatient(Patient patient) {
         SQLiteDatabase db = mLocalDBHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -100,6 +122,10 @@ public class PatientManager {
         return db.update(PATIENT_TABLE, cv, COLUMN_PATIENT_ID + "=" + patient.getId(), null) > 0;
     }
 
+    /**
+     * Get all patient entries which are dirty in local SQLite DB
+     * @return A list of dirty patient objects
+     */
     public ArrayList<PatientDBEntry> queryDirtyPatients() {
         Cursor wrapped = mLocalDBHelper.getReadableDatabase().query(PATIENT_TABLE,
                 new String[] {COLUMN_PATIENT_ID,
@@ -131,6 +157,9 @@ public class PatientManager {
         return arrayList;
     }
 
+    /**
+     * A class method for patient cursor
+     */
     public static class PatientCursor extends CursorWrapper {
 
         public PatientCursor(Cursor c) {

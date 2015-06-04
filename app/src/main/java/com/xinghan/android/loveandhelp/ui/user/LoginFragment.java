@@ -120,8 +120,6 @@ public class LoginFragment extends Fragment {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editor = sharedPref.edit();
 
-            //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-            //SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(getString(R.string.user_token), t);
             editor.putString(getString(R.string.user_name_text), mUsername);
             Log.d("login store token", t);

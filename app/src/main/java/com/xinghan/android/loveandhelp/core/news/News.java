@@ -8,6 +8,16 @@ import java.util.UUID;
  * Created by xinghan on 3/23/15.
  */
 public class News {
+    private UUID mId;
+    private String mDescription;
+    private String mContent;
+    private String mLink;
+    @SerializedName(("title")) private String mTitle;
+    @SerializedName("slug") private String mSlug;
+    @SerializedName("photo") String mImage;
+    @SerializedName("created") String mDate;
+    @SerializedName("body") String mBody;
+
     public UUID getId() {
         return mId;
     }
@@ -56,18 +66,6 @@ public class News {
         mImage = image;
     }
 
-    @Override
-    public String toString() {
-        return mTitle;
-    }
-
-    private UUID mId;
-    @SerializedName(("title")) private String mTitle;
-    private String mDescription;
-    private String mContent;
-    private String mLink;
-
-
     public String getSlug() {
         return mSlug;
     }
@@ -75,9 +73,6 @@ public class News {
     public void setSlug(String slug) {
         mSlug = slug;
     }
-
-    @SerializedName("slug") private String mSlug;
-    @SerializedName("photo") String mImage;
 
     public String getBody() {
         return mBody;
@@ -87,8 +82,6 @@ public class News {
         mBody = body;
     }
 
-    @SerializedName("body") String mBody;
-
     public String getDate() {
         return mDate;
     }
@@ -97,5 +90,11 @@ public class News {
         mDate = date;
     }
 
-    @SerializedName("created") String mDate;
+
+    @Override
+    public String toString() {
+        return mTitle;
+    }
+
+
 }

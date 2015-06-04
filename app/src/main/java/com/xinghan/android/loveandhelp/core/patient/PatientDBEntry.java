@@ -4,8 +4,15 @@ import java.util.Date;
 
 /**
  * Created by xinghan on 5/26/15.
+ * PatientDBEntry is to present a single local SQLite
+ * database entry of Patient
  */
 public class PatientDBEntry extends Patient{
+    private int state;
+    private String owner;
+    private int isDirty;
+    private Date lastSync;
+
     public int getIsDirty() {
         return isDirty;
     }
@@ -22,9 +29,6 @@ public class PatientDBEntry extends Patient{
         this.lastSync = lastSync;
     }
 
-    private int isDirty;
-    private Date lastSync;
-
     public int getState() {
         return state;
     }
@@ -33,8 +37,6 @@ public class PatientDBEntry extends Patient{
         this.state = state;
     }
 
-    private int state;
-
     public String getOwner() {
         return owner;
     }
@@ -42,6 +44,4 @@ public class PatientDBEntry extends Patient{
     public void setOwner(String owner) {
         this.owner = owner;
     }
-
-    private String owner;
 }

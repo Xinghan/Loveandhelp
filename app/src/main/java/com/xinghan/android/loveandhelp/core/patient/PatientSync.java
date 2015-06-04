@@ -6,10 +6,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.xinghan.android.loveandhelp.R;
-import com.xinghan.android.loveandhelp.core.user.Register;
-import com.xinghan.android.loveandhelp.core.user.RegistrationEvent;
 import com.xinghan.android.loveandhelp.network.ServerConnection;
 import com.xinghan.android.loveandhelp.persistence.LocalDBHelper;
 
@@ -37,9 +34,27 @@ public class PatientSync extends AsyncTask<String, Void, JSONObject> {
 
     private Patient mPatient;
     private Context mContext;
+    private static PatientSync sPatientSync;
 
-    public PatientSync(Context context) {
+    /**
+     * Constructor of PatientSync
+     * @param context
+     */
+    private PatientSync(Context context) {
         this.mContext = context;
+    }
+
+    /**
+     * Static method to get PatientSync object
+     * @param c
+     * @return PatientSync object
+     */
+    public static PatientSync getPatientSync(Context c) {
+        if(sPatientSync == null) {
+            sPatientSync = new PatientSync(c);
+        }
+
+        return sPatientSync;
     }
 
     @Override
@@ -53,6 +68,11 @@ public class PatientSync extends AsyncTask<String, Void, JSONObject> {
         super.onPostExecute(jo);
     }
 
+    /**
+     * Parse JSON result from server
+     * @param url
+     * @return A JSON object represent
+     */
     private JSONObject getHttpJsonResult(String url) {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost postRequest = new HttpPost(url);
