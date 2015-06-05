@@ -6,6 +6,7 @@ package com.xinghan.android.loveandhelp.core.user;
 public class Register {
     private String username;
     private String password;
+    private String email;
 
     public String getEmail() {
         return email;
@@ -30,8 +31,4 @@ public class Register {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String email;
-
-
 }

@@ -140,6 +140,7 @@ public class PatientManager {
         ArrayList<PatientDBEntry> arrayList = new ArrayList<PatientDBEntry>();
         // Generate arraylist
         String owner = ServerConnection.SERVER + ServerConnection.RESTAPI + ServerConnection.ACCOUNTAPI;
+        // Get user ID from content provider
         owner += "22/.json";
 
         while(!wrapped.isAfterLast()) {

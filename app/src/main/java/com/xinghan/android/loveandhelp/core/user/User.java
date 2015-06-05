@@ -8,6 +8,9 @@ import java.util.UUID;
  * Created by xinghan on 4/17/15.
  */
 public class User extends Role {
+    private String mPassword;
+    private String mEmail;
+
     public String getPassword() {
         return mPassword;
     }
@@ -16,8 +19,6 @@ public class User extends Role {
         mPassword = password;
     }
 
-    private String mPassword;
-
     public String getEmail() {
         return mEmail;
     }
@@ -25,8 +26,4 @@ public class User extends Role {
     public void setEmail(String email) {
         mEmail = email;
     }
-
-    private String mEmail;
-
-
 }

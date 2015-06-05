@@ -12,6 +12,7 @@ import com.xinghan.android.loveandhelp.persistence.LocalDBHelper;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
@@ -75,6 +76,8 @@ public class PatientSync extends AsyncTask<String, Void, JSONObject> {
      */
     private JSONObject getHttpJsonResult(String url) {
         HttpClient httpClient = new DefaultHttpClient();
+
+        // Http POST request
         HttpPost postRequest = new HttpPost(url);
         postRequest.setHeader("Content-type", "application/json");
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -83,9 +86,12 @@ public class PatientSync extends AsyncTask<String, Void, JSONObject> {
         String token = mSharedPreference.getString(mContext.getString(R.string.user_token), defaultValue);
         token = "JWT " + token;
         postRequest.addHeader("Authorization", token);
+
+        // Http PUT request
         HttpPut putRequest = new HttpPut(url);
         putRequest.setHeader("Content-type", "application/json");
         putRequest.addHeader("Authorization", token);
+
         JSONObject jo = null;
         boolean paramIsValid = false;
 
@@ -103,48 +109,37 @@ public class PatientSync extends AsyncTask<String, Void, JSONObject> {
                     obj.put("owner", pe.getOwner());
                     String pes = obj.toString();
                     StringEntity entity = new StringEntity(pes);
+
+                    // Entry is a new entry
                     if(pe.getState() == LocalDBHelper.NEW_ENTRY) {
                         postRequest.setEntity(entity);
                         BufferedReader br = new BufferedReader(new InputStreamReader(postRequest.getEntity().getContent()));
-                        HttpResponse response = httpClient.execute(postRequest);
-                        int status = response.getStatusLine().getStatusCode();
-                        Log.d("response code: ", (new Integer(status)).toString());
-                        bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                        String line = "";
-                        String LineSeparator = System.getProperty("line.separator");
-                        while((line = bufferedReader.readLine()) != null) {
-                            stringBuffer.append(line + LineSeparator);
-                        }
-
-                        bufferedReader.close();
-                        Log.d("User http post:", "result: " + stringBuffer);
-
-                        jo = generateJSonObject(status, stringBuffer.toString());
-
-                        EventBus.getDefault().post(new PatientSyncEvent(jo));
-
                     } else if(pe.getState() == LocalDBHelper.UPDATE_ENTRY) {
+                        // The entry is an update entry
                         postRequest.setEntity(entity);
                         BufferedReader br = new BufferedReader(new InputStreamReader(postRequest.getEntity().getContent()));
-                        HttpResponse response = httpClient.execute(putRequest);
-                        int status = response.getStatusLine().getStatusCode();
-                        Log.d("response code: ", (new Integer(status)).toString());
-                        bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-                        String line = "";
-                        String LineSeparator = System.getProperty("line.separator");
-                        while((line = bufferedReader.readLine()) != null) {
-                            stringBuffer.append(line + LineSeparator);
-                        }
-
-                        bufferedReader.close();
-                        Log.d("User http post:", "result: " + stringBuffer);
-
-                        jo = generateJSonObject(status, stringBuffer.toString());
-
-                        EventBus.getDefault().post(new PatientSyncEvent(jo));
+                    } else if(pe.getState() == LocalDBHelper.DELETE_ENTRY) {
+                        // The entry is deleted
+                        // Http DELETE request
+                        HttpDelete deleteRequest = new HttpDelete(url);
+                        putRequest.setHeader("Content-type", "application/json");
+                        putRequest.addHeader("Authorization", token);
                     }
+
+                    HttpResponse response = httpClient.execute(postRequest);
+                    int status = response.getStatusLine().getStatusCode();
+                    Log.d("response code: ", (new Integer(status)).toString());
+                    bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                    String line = "";
+                    String LineSeparator = System.getProperty("line.separator");
+                    while((line = bufferedReader.readLine()) != null) {
+                        stringBuffer.append(line + LineSeparator);
+                    }
+
+                    bufferedReader.close();
+                    jo = generateJSonObject(status, stringBuffer.toString());
+                    EventBus.getDefault().post(new PatientSyncEvent(jo));
                 }
 
             } catch (Exception e){

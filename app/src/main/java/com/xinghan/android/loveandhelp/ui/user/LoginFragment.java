@@ -102,7 +102,6 @@ public class LoginFragment extends Fragment {
                 Login login = new Login();
 
                 login.setUsername(usernameEditText.getText().toString());
-
                 login.setPassword(passwordEditText.getText().toString());
 
                 UserLoginThread n = new UserLoginThread(login);

@@ -4,6 +4,9 @@ package com.xinghan.android.loveandhelp.core.user;
  * Created by xinghan on 5/9/15.
  */
 public class Login {
+    private String username;
+    private String password;
+
     public String getUsername() {
         return username;
     }
@@ -19,9 +22,4 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String username;
-    private String password;
-
-
 }
