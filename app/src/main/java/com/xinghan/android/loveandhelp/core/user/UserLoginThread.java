@@ -35,6 +35,11 @@ public class UserLoginThread extends AsyncTask<String, Void, JSONObject> {
         return jo;
     }
 
+    /**
+     * When user login successfully, get user session token
+     * @param url
+     * @return JSON object
+     */
     private JSONObject getToken(String url) {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost request = new HttpPost(url);
@@ -77,6 +82,12 @@ public class UserLoginThread extends AsyncTask<String, Void, JSONObject> {
         return jo;
     }
 
+    /**
+     * Generate a JSON result object
+     * @param status
+     * @param result
+     * @return result JSON object
+     */
     private JSONObject generateJSonObject(int status, String result) {
         JSONObject jo = new JSONObject();
         Log.d("generateJSONobj", result);

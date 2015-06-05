@@ -47,6 +47,12 @@ public class UserSignupThread extends AsyncTask<String, Void, JSONObject> {
         super.onPostExecute(jo);
     }
 
+    /**
+     * User sign up thread
+     * @param url
+     * @param state
+     * @return JSON result object
+     */
     private JSONObject getHttpJsonResult(String url, int state) {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost request = new HttpPost(url);

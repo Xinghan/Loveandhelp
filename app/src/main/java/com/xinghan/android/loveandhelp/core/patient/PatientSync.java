@@ -150,6 +150,12 @@ public class PatientSync extends AsyncTask<String, Void, JSONObject> {
         return jo;
     }
 
+    /**
+     * Generate a JSON object for the result
+     * @param status
+     * @param result
+     * @return A JSON object
+     */
     private JSONObject generateJSonObject(int status, String result) {
         JSONObject jo = new JSONObject();
         try {
